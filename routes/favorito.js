@@ -12,5 +12,6 @@ api.delete('/favorito/:id',FavoritoController.deleteFavorito); //eliminar
 api.get('/web',FavoritoController.getwebpage);
 
 api.get('/favoritos',FavoritoController.getFavoritos); //obtener
+api.get('/newFavorito',FavoritoController.newFavorito);
 
 module.exports = api;

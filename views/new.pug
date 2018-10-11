@@ -1,0 +1,13 @@
+extends layout
+block content
+	form(method='POST' action='/api/favorito')
+		.form-group
+			label(for='exampleInputEmail1') Title
+			input.form-control(type='text' name='title' placeholder='Ingresa titulo')
+		.form-group
+			label(for='exampleInputEmail1') Descripcion
+			input.form-control(type='text' name='description' placeholder='Ingresa descripcion')
+		.form-group
+			label(for='exampleInputEmail1') URL
+			input.form-control(type='text' name='url' placeholder='Ingresa url')
+		button.btn.btn-primary(type='submit') Guardar

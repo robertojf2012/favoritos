@@ -7,6 +7,8 @@ var path = require("path");
 const app = express();
 const api = require('./routes/favorito');
 
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use('/api',api);

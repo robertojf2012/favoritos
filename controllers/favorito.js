@@ -37,7 +37,8 @@ function saveFavorito(req,res){
 			console.log(err);
 			res.send({message: "No se pudo guardar el registro"});	
 		}else{
-			res.send({message:favoritoStored});
+			//res.send({message:favoritoStored});
+			res.redirect("/api/favoritos")
 		}
 	})
 
@@ -84,10 +85,15 @@ function getFavoritos(req,res){
 			res.status(404).send({message: "No hay registros para mostrar"});
 		}
 
-		res.status(200).send({favoritos});
+		//res.status(200).send({favoritos});
+		res.render('index.pug',{favoritos:favoritos , title:'Mis favoritos'});
 
 	});
 
+}
+
+function newFavorito(req,res){
+	res.render('new.pug',{ title:'Nuevo Favorito'});	
 }
 
 function getwebpage(req,res){
@@ -101,5 +107,6 @@ module.exports = {
 	saveFavorito,
 	updateFavorito,
 	deleteFavorito,
+	newFavorito,
 	getwebpage
 }
