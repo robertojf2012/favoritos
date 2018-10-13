@@ -1,0 +1,18 @@
+extends layout
+block content
+
+	form
+		.form-group
+			b TITULO: 
+			label= favorito.title
+			br
+			b DESCRIPCION: 
+			Label= favorito.description
+			br
+			b URL: 
+			Label= favorito.url
+			br
+			br
+			a.button.btn.btn-dark(href='../favoritos' type='button') Mostrar todos
+
+

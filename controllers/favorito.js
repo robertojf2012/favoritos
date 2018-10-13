@@ -17,7 +17,7 @@ function getFavorito(req,res){
 		if(err){
 			res.status(500).send({message:"error al devolver marcador"});
 		}else{
-			res.status(200).send({favorito});
+			res.render('show.pug',{favorito:favorito , title:'Favorito'});
 		}
 
 	})
@@ -60,18 +60,33 @@ function updateFavorito(req,res){
 
 }
 
-function deleteFavorito(req,res){
-	const favoritoId = req.params.id;
+function deleteFavorito(req, res){
+    var favoritoId = req.params.id;
+    Favorito.findById(favoritoId, function (err,favorito) {
+        if (err){
+            res.status(500).send({message:"Error al devolver favorito"});
+        }
 
-	Favorito.findOneAndRemove(favoritoId,function(err,deletedFavorito){
-		if(err){
-			res.status(500).send({message:"error al devolver marcador"});
-		}else{
-			res.status(200).send({deletedFavorito});
-		}
+        if(!favorito){
+            res.status(404).send({message:"No hay favorito"});
 
-	})
+        }else{
+            favorito.remove(err => {
+                if(err){
+                    res.status(500).send({message:"No se ha podido eliminar"});
 
+                }else{
+                    res.redirect("/api/favoritos")
+                //res.status(200).send({message:"Marcador eliminado correctamente"});
+
+            }
+                
+            });
+            
+        }
+        
+    });
+    
 }
 
 function getFavoritos(req,res){
@@ -100,6 +115,21 @@ function getwebpage(req,res){
 	res.sendFile(path.join(__dirname+'../../views/prueba.html'));
 }
 
+function getListFavoritosMobile(req,res){
+	Favorito.find({}).collation({locale:"en"}).sort({title:-1}).exec((err,favoritos)=>{
+
+	if(err){
+		res.status(500).send({message: "Hubo en error en el server"});
+	}
+	if(!favoritos){
+		res.status(404).send({message: "No hay registros para mostrar"});
+	}
+
+	res.status(200).send({favoritos});
+
+	});
+}
+
 module.exports = {
 	saludar,
 	getFavorito,
@@ -108,5 +138,6 @@ module.exports = {
 	updateFavorito,
 	deleteFavorito,
 	newFavorito,
-	getwebpage
+	getwebpage,
+	getListFavoritosMobile
 }
