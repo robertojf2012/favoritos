@@ -18,5 +18,25 @@ block content
             a.button.btn.btn-info(href='favorito/'+val.id, type='button') Info
             a.button.btn.btn-danger(href='deleteFavorito/'+val.id, type='button') Eliminar
 
+    nav(aria-label='Page navigation example')
+  ul.pagination.float-right
+
+    if active == 1
+      a.page-link.previous.disabled(href='/api/favoritos/'+(1), aria-label='Previous')
+        span(aria-hidden='true') Previous
+        span.sr-only 
+    else
+        a.page-link.previous(href='/api/favoritos/'+(active-1) aria-label='Previous')
+          span(aria-hidden='true') Previous
+          span.sr-only 
+
+    each _, val in Array(pagina)    
+      li.page-item
+        a.page-link(href=val+1)=val+1
+
+    li.page-item
+      a.page-link(href='#' aria-label='Next')
+        span(aria-hidden='true') &raquo;
+        span.sr-only Next
 
   a.btn.btn-lg.btn-outline-primary(href='/api/newFavorito' type='button') Nuevo

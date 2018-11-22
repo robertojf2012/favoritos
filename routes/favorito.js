@@ -11,7 +11,7 @@ api.put('/favorito/:id',FavoritoController.updateFavorito); //actualizar
 api.get('/deleteFavorito/:id',FavoritoController.deleteFavorito); //eliminar
 api.get('/web',FavoritoController.getwebpage);
 
-api.get('/favoritos',FavoritoController.getFavoritos); //obtener
+api.get('/favoritos/:page',FavoritoController.getFavoritos); //obtener
 api.get('/newFavorito',FavoritoController.newFavorito);
 
 api.get('/favoritosMobile',FavoritoController.getListFavoritosMobile);

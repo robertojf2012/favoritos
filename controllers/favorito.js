@@ -91,6 +91,21 @@ function deleteFavorito(req, res){
 
 function getFavoritos(req,res){
 
+	const page = req.params.page;
+
+	Favorito.paginate({},{page: page, limit: 5}, function(err,favoritos){
+		if(err){
+			res.status(500).send({message: "Hubo en error en el server"});
+		}
+		if(!favoritos){
+			res.status(404).send({message: "No hay registros para mostrar"});
+		}
+
+	}).then(response =>{
+			res.render('index.pug',{favoritos:response.docs, pagina:response.pages, active:response.page,title:'Mis favoritos'});
+	})
+
+	/*
 	Favorito.find({}).collation({locale:"en"}).sort({title:-1}).exec((err,favoritos)=>{
 		
 		if(err){
@@ -104,6 +119,7 @@ function getFavoritos(req,res){
 		res.render('index.pug',{favoritos:favoritos , title:'Mis favoritos'});
 
 	});
+	*/
 
 }
 
